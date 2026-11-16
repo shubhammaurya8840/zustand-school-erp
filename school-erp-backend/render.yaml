@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: zustand-school-erp-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/docs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 7d
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zustand-school-erp-db
+          property: connectionString
+
+databases:
+  - name: zustand-school-erp-db
+    databaseName: zustand_school_erp
+    user: zustand_admin
+    plan: free
+
