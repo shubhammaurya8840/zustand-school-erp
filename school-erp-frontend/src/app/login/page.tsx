@@ -7,6 +7,15 @@ import { GlassCard } from '@/components/common/GlassCard';
 import { Eye, EyeOff, Lock, User, ArrowRight, ShieldCheck, AlertCircle, Loader2 } from 'lucide-react';
 import { authService } from '@/services/auth.service';
 
+const DEMO_ROLES = [
+  { label: 'Admin', email: 'admin@zustand.edu', pass: 'AdminSecure2026!@' },
+  { label: 'Accountant', email: 'accountant@zustand.edu', pass: 'AccountantSecure2026!@' },
+  { label: 'Teacher', email: 'teacher@zustand.edu', pass: 'TeacherSecure2026!@' },
+  { label: 'Librarian', email: 'librarian@zustand.edu', pass: 'LibrarianSecure2026!@' },
+  { label: 'Parent', email: 'parent@zustand.edu', pass: 'ParentSecure2026!@' },
+  { label: 'Student', email: 'student@zustand.edu', pass: 'StudentSecure2026!@' },
+];
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -209,7 +218,30 @@ function LoginForm() {
             </button>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-200/50 text-center">
+          {/* Quick Demo Credentials Autofill */}
+          <div className="mt-5 pt-4 border-t border-slate-200/60">
+            <p className="text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">
+              Quick Role Login (Click to Fill)
+            </p>
+            <div className="grid grid-cols-3 gap-1.5">
+              {DEMO_ROLES.map((r) => (
+                <button
+                  key={r.label}
+                  type="button"
+                  onClick={() => {
+                    setIdentifier(r.email);
+                    setPassword(r.pass);
+                    setErrorMessage(null);
+                  }}
+                  className="px-2 py-1.5 text-[11px] font-semibold bg-white/70 hover:bg-white text-slate-700 border border-slate-200/80 rounded-lg shadow-2xs hover:border-indigo-400 hover:text-indigo-600 transition-all text-center"
+                >
+                  {r.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 pt-3 border-t border-slate-200/50 text-center">
             <p className="text-[11px] text-slate-500">
               Institutional security protocol active • All access attempts are audited
             </p>
